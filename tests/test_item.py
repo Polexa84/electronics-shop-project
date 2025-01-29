@@ -29,6 +29,30 @@ def test_apply_discount():
     assert emp1.price == 36
     assert emp2.price == 1000.0
 
+def test_setter_getter():
+    emp1 = Item("ГиперМагнитофон", 60.0, 100)
+    assert emp1.name == "ГиперМагнитофон"
+    emp1.name = "ГиперМагнитофон"
+    assert emp1.name == "ГиперМагни"
+    assert len(emp1.name) == 10
+
+def test_staticmethod():
+    assert Item.string_to_number('10') == 10
+    assert Item.string_to_number('123.5') == 123
+    assert Item.string_to_number('усу') == 0
+
+def test_classmethod():
+    Item.all.clear()
+    Item.instantiate_from_csv("../src/items.csv")
+    assert len(Item.all) == 5
+    item1 = Item.all[-1]
+    assert item1.name == 'Мышка'
+
+
+
+
+
+
 
 
 
