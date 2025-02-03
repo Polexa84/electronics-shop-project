@@ -20,6 +20,13 @@ class Item:
         self.quantity = quantity
         Item.all.append(self)
 
+    def __str__(self):
+        return f'{self.__name}'
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}{self.__name, self.price, self.quantity}'
+
+
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
