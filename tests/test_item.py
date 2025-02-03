@@ -41,12 +41,23 @@ def test_staticmethod():
     assert Item.string_to_number('123.5') == 123
     assert Item.string_to_number('усу') == 0
 
-def test_classmethod():
+def test_class_method():
     Item.all.clear()
     Item.instantiate_from_csv("../src/items.csv")
     assert len(Item.all) == 5
     item1 = Item.all[-1]
     assert item1.name == 'Мышка'
+
+def test_repr_add_str():
+    emp5 = Item("Телевизор",10000.0,10)
+    assert repr(emp5) == "Item('Телевизор', 10000.0, 10)"
+    assert str(emp5) == 'Телевизор'
+
+
+
+
+
+
 
 
 
