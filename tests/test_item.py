@@ -1,6 +1,8 @@
 from src.item import Item
+from src.phone import Phone
+
 import pytest
-"""Здесь надо написаны тесты с использованием pytest для модуля item."""
+"""Здесь написаны тесты с использованием pytest для модуля item."""
 # TasteCase№1
 def test_item():
     emp1 = Item("Телевизор",10000.0,10)
@@ -48,10 +50,21 @@ def test_class_method():
     item1 = Item.all[-1]
     assert item1.name == 'Мышка'
 
-def test_repr_add_str():
+def test_repr_and_str():
     emp5 = Item("Телевизор",10000.0,10)
     assert repr(emp5) == "Item('Телевизор', 10000.0, 10)"
     assert str(emp5) == 'Телевизор'
+
+def test_add():
+    emp6 = Item("Телевизор",10000.0,10)
+    phn1 = Phone("iPhone 16 Pro Max", 160_000, 3, 2)
+    assert emp6 + phn1 == 13
+    assert phn1 + phn1 == 6
+    try:
+        phn1 + 10
+        assert False, "Ожидалось исключение ValueError, но оно не возникло."
+    except ValueError as e:
+        assert str(e) == 'Складывать можно только объекты Item и дочерние от них.'
 
 
 
