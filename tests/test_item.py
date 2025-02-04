@@ -1,4 +1,4 @@
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 import pytest
@@ -49,6 +49,22 @@ def test_class_method():
     assert len(Item.all) == 5
     item1 = Item.all[-1]
     assert item1.name == 'Мышка'
+    Item.all.clear()
+    try:
+        Item.instantiate_from_csv("../src/ems.csv")
+    except FileNotFoundError:
+        raise f"FileNotFoundError: Отсутствует файл ../src/ems.csv"
+    Item.all.clear()
+    try:
+        Item.instantiate_from_csv("../src/ms.csv")
+    except KeyError:
+        raise f"InstantiateCSVError: Файл ./src/ms.csv поврежден"
+    except ValueError:
+        raise f"InstantiateCSVError: Файл ./src/ms.csv поврежден"
+
+
+
+
 
 def test_repr_and_str():
     emp5 = Item("Телевизор",10000.0,10)
