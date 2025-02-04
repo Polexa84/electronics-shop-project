@@ -75,11 +75,24 @@ class Item:
         """
         Инициализирующий экземпляры класса `Item` данными из файла items.csv
         """
-        with open(file, encoding="utf-8") as list:
-            goods = csv.DictReader(list)
+        try:
+            with open(file, encoding="utf-8") as list:
+                goods = csv.DictReader(list)
 
-            for good in goods:
-                name = good["name"]
-                price = float(good['price'])
-                quantity = int(good['quantity'])
-                cls(name, price, quantity)
+                for good in goods:
+                    try:
+                        name = good["name"]
+                        price = float(good['price'])
+                        quantity = int(good['quantity'])
+                        cls(name, price, quantity)
+                    except KeyError:
+                        print(f"InstantiateCSVError: Файл {file} поврежден")
+                    except ValueError:
+                        print(f"InstantiateCSVError: Файл {file} поврежден")
+
+        except FileNotFoundError:
+            print(f"FileNotFoundError: Отсутствует файл {file}")
+
+
+class InstantiateCSVError(Exception): # Все равно нужно определение, хотя оно и не используется
+    pass
